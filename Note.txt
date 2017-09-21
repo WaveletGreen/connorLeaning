@@ -1,0 +1,104 @@
+1.国际化：配置properties文件，命名规则根据plugin_国区_properties(英文默认是plugin.properties，中文是plugin_zh_CN.properties),plugin.xml中用>>"%+菜单ID"<<调用即可(如%title_Menu)
+
+2.TC中标准程序调用顺序
+	handler->action->command->dialog->operation
+	
+3.会话session可以获取当前登录的用户/Type/Service等s
+
+4.	session.queueOperation()启动Operation但不等待operation的结果
+	session.queueOperationAndWait(arg0) 等待operation的结果
+	大剂量（长时）的运算必须放在operation中运行，否则TC会假死甚至崩溃，operation还会调用TC的进度条显示操作进度
+
+5.home文件夹根据session.getUser().getHomeFolder()获得，home有一个refresh()方法可刷新界面
+
+6.设置TCComponent的property之前，需要先comp.refresh()（刷新流）->comp.lock()（锁定对象）->comp.setProperty()（设置属性）->comp.save()（保存属性）->comp.unlock()（解锁）->comp.refresh()（刷新）;防止网络多线程修改同一个对象
+
+7.根据TCComponetType获取还没有创建成功的对象描述->TCComponentItemType.getProDesc，通过属性描述获取对象的类型对应的整数值，由此判断这个对象是哪种类型
+
+8.Refrence属性（引用属性不能在TC界面上以某种方式展现出来），关系属性是可以以伪文件夹形式在TC上展现出来
+
+9.首选项：用来配置，TC11首选项类别不能定义BUG
+
+10.在查询构建起器：item_id不存在版本上，只存在item上，所以关联item和ItemRevision的是items_tag，点击items_tag，找到Item进行关联item
+
+11.查询构建器日期的格式 yyyy-M-dd HH:mm，如果不是这种格式需要转换成这种格式，如2017-9-12 00:00，月份不是两个数字（除了10,11,12之外） 日/时/分是两个数
+
+11.BOMLine两个重要的属性 bl_sequence_no（涉及到BOMLine的排序，值越小越排在前面） bl_quantity（数量，BOMLine中需要多少个这样的ItemRevision）
+
+12.br：在item下的视图 ；    bvr： 在ItemRevision下的视图。一般业务上不推多视图，只推单视图，多视图成本高
+
+13.发送到分类
+	操作分类：1.先得到Service:session.getClassificationService()
+		   2.从Service中获取到ICM(Item Classification Manager)的实例:icsapp=service.newICSApplicationObject("ICM");
+		   3.创建分类实例icsapp.create(item_id,版本的puid);
+		   4.设置具体的类，参数是要发送到的分类的id:icsapp.setView(分类的ID);
+		   5.获取view： ICSView view=icsapp.getView();
+		   6.获取分类的描述：（从描述中可以获取分类中定义的属性，如id，keyLOV等等）
+		   7.设置具体item版本的类属性：参数1是属性的ID，参数2是属性的值（只能是字符串）
+		   		ICSProperty property1=new ICSProperty(属性的ID，需要设置的值);
+		   		icsapp.setProperties(new ICSProperty[]{property1});
+		   8.保存 icsapp.save();		
+		   		
+14.分类对象没有创建，需要获取分类的一些信息，从TCSAdminClass中获取
+		   1.获取服务	TCClassificationService service=session.getClassificationService()
+		   2.创建分类	TCSAdminClass icsAdmin=service.newICSAdminClass();
+		   3.加载分类	icsAdmin.load(分类的ID);
+		   4.根据加载进来的分类属性进行分类判断
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
