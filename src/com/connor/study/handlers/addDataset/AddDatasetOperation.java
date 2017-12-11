@@ -46,16 +46,20 @@ public class AddDatasetOperation extends AbstractAIFOperation {
 
 		String as1[] = { this.path };// 文件的物理路径
 		String as2[] = { "Text" };
+		
 		TCComponentDatasetType t = (TCComponentDatasetType) session.getTypeComponent("Dataset");
 		TCComponentDataset f = t.create(folderName, describe, "Text");
 		f.setFiles(as1, as2);
+		
 		TCComponent component = (TCComponent) this.tccomponent;
+		
 		if (component instanceof TCComponentFolder) {
 			component.add("contents", f);
 		} else if (component instanceof TCComponentItem) {
 			component.add("IMAN_reference", f);
 		} else if (component instanceof TCComponentItemRevision) {
 			component.add("IMAN_specification", f);
+			component.getRelatedComponents("IMAN_specification");
 		}
 		MessageBox.post("数据集" + folderName + "成功", "成功", MessageBox.INFORMATION);
 

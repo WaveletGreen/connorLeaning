@@ -30,6 +30,11 @@
             name="挂载版本">
       </command>
       <command
+            categoryId="com.connor.leanning.commands.addRevisionToBOMWithQueryCommand"
+            id="com.connor.leanning.commands.addRevisionToBOMWithQueryCommand"
+            name="挂载版本(采用查询构建器)">
+      </command>
+      <command
             categoryId="com.connor.leanning.commands.category.exportExcelCommand"
             id="com.connor.leanning.commands.exportExcelCommand"
             name="导出Excel表">
@@ -69,6 +74,10 @@
       <handler
             class="com.connor.study.handlers.SetItemPropertyHandler"
             commandId="com.connor.leanning.commands.setItemPropertyCommand">
+      </handler>
+      <handler
+            class="com.connor.study.handlers.queryItem.AddRevisionToBOMWithQueryHandler"
+            commandId="com.connor.leanning.commands.addRevisionToBOMWithQueryCommand">
       </handler>
    </extension>
    <extension
@@ -162,6 +171,11 @@
             <command
                   commandId="com.connor.leanning.commands.setItemPropertyCommand"
                   id="com.connor.leanning.menus.setItemProperty"
+                  mnemonic="S">
+            </command>
+            <command
+                  commandId="com.connor.leanning.commands.addRevisionToBOMWithQueryCommand"
+                  id="com.connor.leanning.commands.addRevisionToBOMWithQueryCommand"
                   mnemonic="S">
             </command>
          </menu>
