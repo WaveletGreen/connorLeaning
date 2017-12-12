@@ -3,7 +3,6 @@ package com.connor.common.handlerUtil;
 import com.teamcenter.rac.aif.AbstractAIFApplication;
 import com.teamcenter.rac.aif.AbstractAIFCommand;
 import com.teamcenter.rac.aif.common.actions.AbstractAIFAction;
-import com.teamcenter.rac.kernel.TCSession;
 import com.teamcenter.rac.util.MessageBox;
 
 public class CommonAction extends AbstractAIFAction {
